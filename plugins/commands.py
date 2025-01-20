@@ -1,19 +1,20 @@
-import os
+import os, requests, asyncio, math, time, wget, logging, random, string, pytz, re, base64
 from telegraph import upload_file
-import random
-import string
-import asyncio
 from time import time as time_now
 import datetime
 from Script import script
 from pyrogram import Client, filters, enums
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup , ForceReply, ReplyKeyboardMarkup, Message, CallbackQuery
 from database.ia_filterdb import Media, get_file_details, delete_files
 from database.users_chats_db import db
 from info import INDEX_CHANNELS, MOVIE_UPDATE_CHANNEL, ADMINS, IS_VERIFY, VERIFY_TUTORIAL, VERIFY_EXPIRE, SHORTLINK_API, SHORTLINK_URL, DELETE_TIME, SUPPORT_LINK, UPDATES_LINK, LOG_CHANNEL, PICS, IS_STREAM, PAYMENT_QR, OWNER_USERNAME, PM_FILE_DELETE_TIME, OWNER_UPI_ID
-from utils import get_settings, get_size, is_subscribed, is_check_admin, get_shortlink, get_verify_status, update_verify_status, save_group_settings, temp, get_readable_time, get_wish, get_seconds
+from utils import get_settings, get_size, is_subscribed, is_check_admin, get_shortlink, get_verify_status, update_verify_status, save_group_settings, temp, get_readable_time, get_wish, get_seconds, get_file_id
 from plugins.pm_filter import auto_filter
 from pyrogram.errors import PeerIdInvalid
+from __future__ import unicode_literals
+from youtube_search import YoutubeSearch
+from youtubesearchpython import SearchVideos
+from yt_dlp import YoutubeDL
 
 MOVIE_UPDATE_CHANNEL = []
 
@@ -502,7 +503,7 @@ async def set_tutorial(client, message):
     await save_group_settings(grp_id, 'tutorial', tutorial)
     await message.reply_text(f"Successfully changed tutorial for {title} to\n\n{tutorial}")
 
-#@Client.on_message(filters.command('telegraph'))
+@Client.on_message(filters.command('telegraph'))
 async def telegraph(bot, message):
     reply_to_message = message.reply_to_message
     if not reply_to_message:
@@ -524,7 +525,16 @@ async def telegraph(bot, message):
         os.remove(media)
     except:
         pass
-    await text.edit_text(f"<b>❤️ ʏᴏᴜʀ ᴛᴇʟᴇɢʀᴀᴘʜ ʟɪɴᴋ ᴄᴏᴍᴘʟᴇᴛᴇᴅ 👇</b>\n\n<code>https://telegra.ph/{response[0]}</code></b>")
+    await text.edit_text(
+        text=f"<b>Link :-</b>\n\n<code>https://graph.org{response[0]}</code>",
+        disable_web_page_preview=True,
+        reply_markup=InlineKeyboardMarkup( [[
+            InlineKeyboardButton(text="Open Link", url=f"https://graph.org{response[0]}"),
+            InlineKeyboardButton(text="Share Link", url=f"https://telegram.me/share/url?url=https://graph.org{response[0]}")
+            ],[
+            InlineKeyboardButton(text="✗ Close ✗", callback_data="close")
+            ]])
+    )
 
 @Client.on_message(filters.command('ping'))
 async def ping(client, message):
@@ -863,5 +873,136 @@ async def get_domains(client: Client, message: Message):
             f"<b>An error occurred while fetching domains:</b> <code>{e}</code>",
             parse_mode=enums.ParseMode.HTML,
             disable_web_page_preview=True
-        )
+        )    
+
+@Client.on_message(filters.command(['song', 'mp3']) & filters.private)
+async def song(client, message):
+    user_id = message.from_user.id 
+    user_name = message.from_user.first_name 
+    rpk = "["+user_name+"](tg://user?id="+str(user_id)+")"
+    query = ''
+    for i in message.command[1:]:
+        query += ' ' + str(i)
+    print(query)
+    m = await message.reply(f"**ѕєαrchíng чσur ѕσng...!\n {query}**")
+    ydl_opts = {"format": "bestaudio[ext=m4a]"}
+    try:
+        results = YoutubeSearch(query, max_results=1).to_dict()
+        link = f"https://youtube.com{results[0]['url_suffix']}"
+        title = results[0]["title"][:40]       
+        thumbnail = results[0]["thumbnails"][0]
+        thumb_name = f'thumb{title}.jpg'
+        thumb = requests.get(thumbnail, allow_redirects=True)
+        open(thumb_name, 'wb').write(thumb.content)
+        performer = f"[Mᴋɴ Bᴏᴛᴢ™]" 
+        duration = results[0]["duration"]
+        url_suffix = results[0]["url_suffix"]
+        views = results[0]["views"]
+    except Exception as e:
+        print(str(e))
+        return await m.edit("**𝙵𝙾𝚄𝙽𝙳 𝙽𝙾𝚃𝙷𝙸𝙽𝙶 𝙿𝙻𝙴𝙰𝚂𝙴 𝙲𝙾𝚁𝚁𝙴𝙲𝚃 𝚃𝙷𝙴 𝚂𝙿𝙴𝙻𝙻𝙸𝙽𝙶 𝙾𝚁 𝙲𝙷𝙴𝙲𝙺 𝚃𝙷𝙴 𝙻𝙸𝙽𝙺**")
+                
+    await m.edit("**dσwnlσαdíng чσur ѕσng...!**")
+    try:
+        with YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(link, download=False)
+            audio_file = ydl.prepare_filename(info_dict)
+            ydl.process_info(info_dict)
+
+        cap = "**BY›› [Mᴋɴ Bᴏᴛᴢ™](https://t.me/mkn_bots_updates)**"
+        secmul, dur, dur_arr = 1, 0, duration.split(':')
+        for i in range(len(dur_arr)-1, -1, -1):
+            dur += (int(dur_arr[i]) * secmul)
+            secmul *= 60
+        await message.reply_audio(
+            audio_file,
+            caption=cap,            
+            quote=False,
+            title=title,
+            duration=dur,
+            performer=performer,
+            thumb=thumb_name
+        )            
+        await m.delete()
+    except Exception as e:
+        await m.edit("**🚫 𝙴𝚁𝚁𝙾𝚁 🚫**")
+        print(e)
+    try:
+        os.remove(audio_file)
+        os.remove(thumb_name)
+    except Exception as e:
+        print(e)
+
+def get_text(message: Message) -> [None,str]:
+    text_to_return = message.text
+    if message.text is None:
+        return None
+    if " " not in text_to_return:
+        return None
+    try:
+        return message.text.split(None, 1)[1]
+    except IndexError:
+        return None
+
+
+@Client.on_message(filters.command(["video", "mp4"]))
+async def vsong(client, message: Message):
+    urlissed = get_text(message)
+    pablo = await client.send_message(message.chat.id, f"**𝙵𝙸𝙽𝙳𝙸𝙽𝙶 𝚈𝙾𝚄𝚁 𝚅𝙸𝙳𝙴𝙾** `{urlissed}`")
+    if not urlissed:
+        return await pablo.edit("Invalid Command Syntax Please Check help Menu To Know More!")     
+    search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
+    mi = search.result()
+    mio = mi["search_result"]
+    mo = mio[0]["link"]
+    thum = mio[0]["title"]
+    fridayz = mio[0]["id"]
+    mio[0]["channel"]
+    kekme = f"https://img.youtube.com/vi/{fridayz}/hqdefault.jpg"
+    await asyncio.sleep(0.6)
+    url = mo
+    sedlyf = wget.download(kekme)
+    opts = {
+        "format": "best",
+        "addmetadata": True,
+        "key": "FFmpegMetadata",
+        "prefer_ffmpeg": True,
+        "geo_bypass": True,
+        "nocheckcertificate": True,
+        "postprocessors": [{"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}],
+        "outtmpl": "%(id)s.mp4",
+        "logtostderr": False,
+        "quiet": True,
+    }
+    try:
+        with YoutubeDL(opts) as ytdl:
+            ytdl_data = ytdl.extract_info(url, download=True)
+    except Exception as e:
+        return await pablo.edit_text(f"**𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍 𝙵𝚊𝚒𝚕𝚎𝚍 𝙿𝚕𝚎𝚊𝚜𝚎 𝚃𝚛𝚢 𝙰𝚐𝚊𝚒𝚗..♥️** \n**Error :** `{str(e)}`")       
+    
+    file_stark = f"{ytdl_data['id']}.mp4"
+    capy = f"""**𝚃𝙸𝚃𝙻𝙴 :** [{thum}]({mo})\n**𝚁𝙴𝚀𝚄𝙴𝚂𝚃𝙴𝙳 𝙱𝚈 :** {message.from_user.mention}"""
+
+    await client.send_video(
+        message.chat.id,
+        video=open(file_stark, "rb"),
+        duration=int(ytdl_data["duration"]),
+        file_name=str(ytdl_data["title"]),
+        thumb=sedlyf,
+        caption=capy,
+        supports_streaming=True,        
+        reply_to_message_id=message.id 
+    )
+    await pablo.delete()
+    for files in (sedlyf, file_stark):
+        if files and os.path.exists(files):
+            os.remove(files)
+            
+@Client.on_message(filters.command("stickerid") & filters.private)
+async def stickerid(bot, message):
+    s_msg = await bot.ask(chat_id = message.from_user.id, text = "Now Send Me Your Sticker")
+    if s_msg.sticker:
+        await s_msg.reply_text(f"**Sticker ID is**  \n `{s_msg.sticker.file_id}` \n \n ** Unique ID is ** \n\n`{s_msg.sticker.file_unique_id}`")
+    else: 
+        await s_msg.reply_text("Oops !! Not a sticker file")
         
