@@ -28,6 +28,13 @@ async def get_imdb(file_name):
         return imdb.get('poster')
     return "https://telegra.ph/file/88d845b4f8a024a71465d.jpg"  # Default poster
 
+async def get_year(file_name):
+    imdb_file_name = await movie_name_format(file_name)
+    imdb = await get_poster(imdb_file_name)
+    if imdb and 'year' in imdb:
+        return imdb.get('year')
+    return None
+
 async def movie_name_format(file_name):
   filename = re.sub(r'http\S+', '', re.sub(r'@\w+|#\w+', '', file_name).replace('_', ' ').replace('[', '').replace(']', '').replace('(', '').replace(')', '').replace('{', '').replace('}', '').replace('.', ' ').replace('@', '').replace(':', '').replace(';', '').replace("'", '').replace('-', '').replace('!', '')).strip()
   return filename
