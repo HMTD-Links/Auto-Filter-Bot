@@ -59,14 +59,6 @@ MOVIE_UPDATE_CHANNEL = [int(movie_update_channel) if movie_update_channel.starts
 FORCE_SUB = [int(force_sub) if force_sub.startswith("-") else force_sub for force_sub in environ.get('FORCE_SUB', '-1002008853384 -1001589399161').split()]
 if len(FORCE_SUB) == 0:
     print('Info - FORCE_SUB is empty')
-# For Forwarding 
-SOURCE_CHANNELS1 = int(environ.get('SOURCE_CHANNELS1', '-1001822541447')) # 1TamilBlasters
-SOURCE_CHANNELS2 = int(environ.get('SOURCE_CHANNELS2', '-1001864825324')) # 1TamilMV
-SOURCE_CHANNELS3 = int(environ.get('SOURCE_CHANNELS3', '-1001822541447')) # 1TamilBlasters
-SOURCE_CHANNELS4 = int(environ.get('SOURCE_CHANNELS4', '-1001864825324')) # 1TamilMV
-SOURCE_CHANNELS5 = int(environ.get('SOURCE_CHANNELS5', '-1001822541447')) # 1TamilBlasters
-SOURCE_CHANNELS6 = int(environ.get('SOURCE_CHANNELS6', '-1001864825324')) # 1TamilMV
-SOURCE_CHANNELS7 = int(environ.get('SOURCE_CHANNELS7', '2082930520'))
 
 # support group
 SUPPORT_GROUP = environ.get('SUPPORT_GROUP', '-1001895961046')
@@ -124,15 +116,6 @@ SHORTLINK = is_enabled('SHORTLINK', False)
 #premium info
 PAYMENT_QR = environ.get('PAYMENT_QR', 'https://envs.sh/4UC.jpg')
 OWNER_UPI_ID = environ.get('OWNER_UPI_ID', 'starbotstamil@oksbi')
-
-# RSS Feed URL
-TAMILMV = environ.get("TMV", "https://www.1tamilmv.uno/")
-TAMILBLAST = environ.get("TB", "https://www.1tamilblasters.party/")
-TAMILROCKERS = environ.get("TR", "https://www.2tamilrockers.com/")
-# log channel list
-TAMILMV_LOG = int(environ.get("TMV_LOG", -1001864825324))
-TAMILBLAST_LOG = int(environ.get("TB_LOG", -1001822541447))
-TAMILROCKERS_LOG = int(environ.get("TR_LOG", -1002056074553))
 
 # for stream
 IS_STREAM = is_enabled('IS_STREAM', True)
