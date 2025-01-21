@@ -25,3 +25,8 @@ requests
 flask
 gunicorn
 wget
+youtube_search
+youtube-search-python==1.4.6
+yt-dlp
+youtube-dl
+ytthumb
