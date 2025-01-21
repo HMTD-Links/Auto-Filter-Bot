@@ -35,6 +35,20 @@ async def get_year(file_name):
         return imdb.get('year')
     return None
 
+async def get_genres(file_name):
+    imdb_file_name = await movie_name_format(file_name)
+    imdb = await get_poster(imdb_file_name)
+    if imdb and 'genres' in imdb:
+        return imdb.get('genres')
+    return "Animation"
+
+async def get_seasons(file_name):
+    imdb_file_name = await movie_name_format(file_name)
+    imdb = await get_poster(imdb_file_name)
+    if imdb and 'seasons' in imdb:
+        return imdb.get('seasons')
+    return None
+
 async def movie_name_format(file_name):
   filename = re.sub(r'http\S+', '', re.sub(r'@\w+|#\w+', '', file_name).replace('_', ' ').replace('[', '').replace(']', '').replace('(', '').replace(')', '').replace('{', '').replace('}', '').replace('.', ' ').replace('@', '').replace(':', '').replace(';', '').replace("'", '').replace('-', '').replace('!', '')).strip()
   return filename
@@ -59,7 +73,9 @@ async def send_movie_updates(bot, file_name, caption, file_id):
         year_match = re.search(r"\b(19|20)\d{2}\b", caption)
         year = year_match.group(0) if year_match else None      
         pattern = r"(?i)(?:s|season)0*(\d{1,2})"
+        episode_pattern = r"(?i)(?:e|ep|episode)0*(\d{1,2})"
         season = re.search(pattern, caption)
+        episode = re.search(episode_pattern, caption)
         if not season:
             season = re.search(pattern, file_name) 
         if year:
@@ -102,10 +118,17 @@ async def send_movie_updates(bot, file_name, caption, file_id):
         # Remove year from movie name
         if year:
             movie_name = movie_name.replace(f" {year}", "")
+        if season:
+            movie_name = movie_name.replace(f" {season}", "")
+        if episode:
+            movie_name = movie_name.replace(f" {episode}", "")
 
         # Get poster URL
         poster_url = await get_imdb(movie_name)
-        caption_message = f"<b>Movie :- <code>{movie_name}</code>\n\nYear :- {year if year else 'Not Available'}\n\nLanguage :- {language}\n\nQuality :- {quality.replace(', ', ' ')}\n\n📤 Uploading By :- <a href=https://t.me/Movies_Dayz>Movies Dayz</a>\n\n⚡ Powered By :- <a href=https://t.me/Star_Moviess_Tamil>Star Movies Tamil</a></b>"
+        imdb_year = await get_year(movie_name)
+        genres = await get_genres(movie_name)
+        seasons = await get_seasons(movie_name)
+        caption_message = f"<b>Anime :- <code>{movie_name}</code>\n\nYear :- {year if year else imdb_year}\n\nSeason :- {season}\n\nTotal Seasons :- {seasons}\n\nEpisode :- {episode}\n\nGenres :- {genres}\n\nLanguage :- {language}\n\nQuality :- {quality.replace(', ', ' ')}\n\n📤 Uploading By :- <a href=https://t.me/Movies_Dayz>Movies Dayz</a>\n\n⚡ Powered By :- <a href=https://t.me/Star_Moviess_Tamil>Star Movies Tamil</a></b>"
         # Prepare buttons
         search_movie = movie_name.replace(" ", '-')
         if year:
