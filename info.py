@@ -32,7 +32,7 @@ if len(BOT_TOKEN) == 0:
     print('Error - BOT_TOKEN is missing, exiting now')
     exit()
 PORT = int(environ.get('PORT', '80'))
-USER_STRING_SESSION = environ.get('USER_STRING_SESSION', '1BVtsOKEBu7SQF8Ck5YduBg9nXiMW9RHtI7x54sGunU6baup5j7Q3oPCF90PFNGjAY0Rh0X6mm1-GwMixKrb7wtgoHsX-j-ZCxYAW8OXnuAGUhbAC0Osff7I0mOxFT-Ropf579sHfd3dK87V_G9GZh84NwbloLdWCrFstAZdjeweBLlUpdpWQsvu11yWD63iN7d1VxmiV1-mo1A7LPe4zPz41fd057m9r-xpnd_M1bAEe5SAWArq_h4IPhWNkakvMxf5CrKg7V7kVK3AyqhDxe5HEE0_nxFSDXXxiBfj9G6k8LwXpnjy3MXG5d5JbWw9Yhj3REtsLRRAkImh7l7sMxOUd_-AMyR8=')
+USER_STRING_SESSION = environ.get('USER_STRING_SESSION', '')
 
 # Bot pics
 PICS = (environ.get('PICS', 'https://envs.sh/4kP.jpg')).split()
