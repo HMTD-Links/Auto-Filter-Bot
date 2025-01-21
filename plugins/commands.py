@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import os, requests, asyncio, math, time, wget, logging, random, string, pytz, re, base64
 from telegraph import upload_file
 from time import time as time_now
@@ -11,7 +12,6 @@ from info import INDEX_CHANNELS, MOVIE_UPDATE_CHANNEL, ADMINS, IS_VERIFY, VERIFY
 from utils import get_settings, get_size, is_subscribed, is_check_admin, get_shortlink, get_verify_status, update_verify_status, save_group_settings, temp, get_readable_time, get_wish, get_seconds, get_file_id
 from plugins.pm_filter import auto_filter
 from pyrogram.errors import PeerIdInvalid
-from __future__ import unicode_literals
 from youtube_search import YoutubeSearch
 from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
