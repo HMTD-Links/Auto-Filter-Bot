@@ -32,5 +32,5 @@ youtube-dl
 ytthumb
 hachoir
 humanize
-Pillow
+Pillow==9.4.0
 time
