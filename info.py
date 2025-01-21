@@ -112,7 +112,7 @@ AUTO_FILTER = is_enabled('AUTO_FILTER', True)
 IMDB = is_enabled('IMDB', True)
 SPELL_CHECK = is_enabled("SPELL_CHECK", True)
 SHORTLINK = is_enabled('SHORTLINK', False)
-RENAME_MODE = is_enabled('RENAME_MODE', True) # Set True or False
+RENAME_MODE = is_enabled('RENAME_MODE', true) # Set True or False
 
 #premium info
 PAYMENT_QR = environ.get('PAYMENT_QR', 'https://envs.sh/4UC.jpg')
