@@ -73,7 +73,7 @@ async def send_movie_updates(bot, file_name, caption, file_id):
         year_match = re.search(r"\b(19|20)\d{2}\b", caption)
         year = year_match.group(0) if year_match else None      
         pattern = r"(?i)(?:s|season)0*(\d{1,2})"
-        episode_pattern = r"(?i)(?:e|ep|episode)0*(\d{1,2})"
+        episode_pattern = r"(?i)(?:e|ep|episode)0*(\d{1,3})"
         season = re.search(pattern, caption)
         episode = re.search(episode_pattern, caption)
         if not season:
