@@ -11,10 +11,15 @@ from database.users_chats_db import db
 from info import INDEX_CHANNELS, MOVIE_UPDATE_CHANNEL, ADMINS, IS_VERIFY, VERIFY_TUTORIAL, VERIFY_EXPIRE, SHORTLINK_API, SHORTLINK_URL, DELETE_TIME, SUPPORT_LINK, UPDATES_LINK, LOG_CHANNEL, PICS, IS_STREAM, PAYMENT_QR, OWNER_USERNAME, PM_FILE_DELETE_TIME, OWNER_UPI_ID
 from utils import get_settings, get_size, is_subscribed, is_check_admin, get_shortlink, get_verify_status, update_verify_status, save_group_settings, temp, get_readable_time, get_wish, get_seconds
 from plugins.pm_filter import auto_filter
-from pyrogram.errors import PeerIdInvalid
+from pyrogram.errors import PeerIdInvalid, FloodWait
 from youtube_search import YoutubeSearch
 from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
+from asyncio import sleep
+from plugins.rename.filedetect import refunc
+from info import RENAME_MODE
+import humanize
+import random
 
 MOVIE_UPDATE_CHANNEL = []
 
@@ -862,3 +867,20 @@ async def stickerid(bot, message):
     else: 
         await s_msg.reply_text("Oops !! Not a sticker file")
         
+@Client.on_message(filters.private & filters.command("rename"))
+async def rename_start(client, message):
+    if RENAME_MODE == False:
+        return 
+    msg = await client.ask(message.chat.id, "**Now send me your file/video/audio to rename.**")
+    if not msg.media:
+        return await message.reply("**Please send me supported media.**")
+    if msg.media in [enums.MessageMediaType.VIDEO, enums.MessageMediaType.DOCUMENT, enums.MessageMediaType.AUDIO]:
+        file = getattr(msg, msg.media.value)
+        filename = file.file_name
+        filesize = humanize.naturalsize(file.file_size) 
+        fileid = file.file_id
+        text = f"""**__𝙿𝚕𝚎𝚊𝚜𝚎 𝙴𝚗𝚝𝚎𝚛 𝙽𝚎𝚠 𝙵𝚒𝚕𝚎𝙽𝚊𝚖𝚎...__**\n\n**File Name** :- `{filename}`\n\n**File Size** :- `{filesize}`"""
+        await message.reply_text(text)
+        kk = await client.listen(message.from_user.id)
+        await refunc(client, message, kk.text, msg)
+      
