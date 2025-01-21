@@ -33,4 +33,4 @@ ytthumb
 hachoir
 humanize
 Pillow==9.4.0
-time
+
