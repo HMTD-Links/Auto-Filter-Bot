@@ -9,7 +9,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup , ForceRep
 from database.ia_filterdb import Media, get_file_details, delete_files
 from database.users_chats_db import db
 from info import INDEX_CHANNELS, MOVIE_UPDATE_CHANNEL, ADMINS, IS_VERIFY, VERIFY_TUTORIAL, VERIFY_EXPIRE, SHORTLINK_API, SHORTLINK_URL, DELETE_TIME, SUPPORT_LINK, UPDATES_LINK, LOG_CHANNEL, PICS, IS_STREAM, PAYMENT_QR, OWNER_USERNAME, PM_FILE_DELETE_TIME, OWNER_UPI_ID
-from utils import get_settings, get_size, is_subscribed, is_check_admin, get_shortlink, get_verify_status, update_verify_status, save_group_settings, temp, get_readable_time, get_wish, get_seconds, get_file_id
+from utils import get_settings, get_size, is_subscribed, is_check_admin, get_shortlink, get_verify_status, update_verify_status, save_group_settings, temp, get_readable_time, get_wish, get_seconds
 from plugins.pm_filter import auto_filter
 from pyrogram.errors import PeerIdInvalid
 from youtube_search import YoutubeSearch
