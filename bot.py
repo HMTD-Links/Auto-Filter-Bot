@@ -20,7 +20,6 @@ from telethon.sessions import StringSession
 from web import web_app
 from info import LOG_CHANNEL, API_ID, API_HASH, BOT_TOKEN, USER_STRING_SESSION, PORT, BIN_CHANNEL, ADMINS, DATABASE_URL, TAMILMV_LOG, TAMILBLAST_LOG
 from utils import temp, get_readable_time
-from plugins.scrapper.tools.rss_feed import tamilmv_rss_feed, tamilblasters_rss_feed, tamilrockers_rss_feed
 
 # pymongo and database imports
 from database.users_chats_db import db
@@ -89,16 +88,7 @@ class Bot(Client):
             exit()
         
         for admin in ADMINS:
-            await self.send_message(chat_id=admin, text="<b>✅ ʙᴏᴛ ʀᴇsᴛᴀʀᴛᴇᴅ</b>")
-        for chat in [TAMILMV_LOG, TAMILBLAST_LOG]:
-            await self.send_message(chat, "Bot Started!")
-        
-        while True:
-            print("TamilMV Scraper Running...")
-            await tamilmv_rss_feed(self)
-            
-            print("TamilBlasters Scraper Running...")
-            await tamilblasters_rss_feed(self)        
+            await self.send_message(chat_id=admin, text="<b>✅ Bot Restarted Successfully..</b>")
 
 async def main():
     user_client = TelegramClient(StringSession(USER_STRING_SESSION), API_ID, API_HASH)
