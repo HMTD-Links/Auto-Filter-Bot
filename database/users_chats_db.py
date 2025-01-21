@@ -40,12 +40,7 @@ class Database:
         self.users = mydb.uersz
         self.botcol = mydb["bot_id"]
         self.movies_update_channel = mydb.movies_update_channel
-        self.channel_col = mydb.channel_data
         self.users = mydb.UsersData
-        self.black = mydb.TamilMV_List
-        self.tb = mydb.TamilBlaster_List
-        self.tr = mydb.TamilRockers_List
-        self.domains = mydb.Domains
     
     def new_user(self, id, name):
         return dict(
@@ -269,117 +264,8 @@ class Database:
         result = await self.movies_update_channel.find_one({})
         return result.get("channels", []) if result else []
 
-    async def set_channel(self, command_type, destination_channel_ids, original_text, replace_text, my_link, web_link, my_username):
-        channel_data = {
-            "command_type": command_type,
-            "destination_channel_ids": destination_channel_ids,
-            "original_text": original_text,
-            "replace_text": replace_text,
-            "my_link": my_link,
-            "web_link": web_link,
-            "my_username": my_username
-        }
-        
-        # Update or insert the data for the given command_type
-        await self.channel_col.update_one(
-            {"command_type": command_type},
-            {"$set": channel_data},
-            upsert=True  # If the command_type doesn't exist, create a new entry
-        )
-
-    async def get_channel(self, command_type):
-        return await self.channel_col.find_one({
-            "command_type": command_type
-        })
-    
     async def get_all_chats_count(self):
         grp = await self.grp.find().to_list(None)
         return grp
-
-    def tamilmv(self, Name, link, url):
-        return dict(
-            FileName = Name,
-            magnet_link = link,
-            magnet_url = url,
-            upload_date=datetime.date.today().isoformat()
-        )
-
-    async def add_tamilmv(self, Name, link, url):
-        user = self.tamilmv(Name, link, url)
-        await self.black.insert_one(user)
-
-    async def is_tamilmv_exist(self, Name, link, url):
-        user = await self.black.find_one({'magnet_url': url})
-        return True if user else False
-
-    def tbx(self, Name, link, url):
-        return dict(
-            FileName = Name,
-            magnet_link = link,
-            magnet_url = url,
-            upload_date=datetime.date.today().isoformat()
-        )
-
-    async def add_tb(self, Name, link, url):
-        user = self.tbx(Name, link, url)
-        await self.tb.insert_one(user)
-
-    async def is_tb_exist(self, Name, link, url):
-        user = await self.tb.find_one({'magnet_url': url})
-        return True if user else False
-
-    # TamilRockers DB Functions
-
-    def tr(self, Name, link, url):
-        return dict(
-            FileName = Name,
-            magnet_link = link,
-            magnet_url = url,
-            upload_date=datetime.date.today().isoformat()
-        )
-
-    async def add_tr(self, Name, link, url):
-        user = self.tr(Name, link, url)
-        await self.tr.insert_one(user)
-
-    async def is_tr_exist(self, Name, link, url):
-        user = await self.tr.find_one({'magnet_url': url})
-        return True if user else False
-
-    # Domain Management Functions
-    async def update_domain(self, key, url):
-        """
-        Add a new domain or update an existing one with the provided key and URL.
-        """
-        existing_domain = await self.domains.find_one({"key": key})
-        if existing_domain:
-            # Update existing domain
-            await self.domains.update_one({"key": key}, {"$set": {"url": url}})
-        else:
-            # Insert new domain
-            await self.domains.insert_one({"key": key, "url": url})
-    
-    async def get_all_domains(self):
-        """
-        Retrieve all domains from the database.
-        """
-        domains = {}
-        async for domain in self.domains.find():
-            domains[domain["key"]] = domain["url"]
-        return domains
-
-    async def get_domain(self, key):
-        """
-        Retrieve a specific domain URL by its key.
-        """
-        domain = await self.domains.find_one({"key": key})
-        return domain["url"] if domain else None
-
-    async def delete_domain(self, key):
-        """
-        Delete a domain by its key.
-        """
-        result = await self.domains.delete_one({"key": key})
-        return result.deleted_count > 0
         
 db = Database()
