@@ -1,6 +1,6 @@
-from plugins.Extra.utils import progress_for_pyrogram, convert, humanbytes
+from plugins.rename.utils import progress_for_pyrogram, convert, humanbytes
 from pyrogram import Client, filters
-from plugins.Extra.rename.filedetect import refunc
+from plugins.rename.filedetect import refunc
 from pyrogram.types import (  InlineKeyboardButton, InlineKeyboardMarkup,ForceReply)
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
