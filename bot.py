@@ -18,7 +18,7 @@ from telethon.sessions import StringSession
 
 # local imports
 from web import web_app
-from info import LOG_CHANNEL, API_ID, API_HASH, BOT_TOKEN, USER_STRING_SESSION, PORT, BIN_CHANNEL, ADMINS, DATABASE_URL, TAMILMV_LOG, TAMILBLAST_LOG
+from info import LOG_CHANNEL, API_ID, API_HASH, BOT_TOKEN, USER_STRING_SESSION, PORT, BIN_CHANNEL, ADMINS, DATABASE_URL
 from utils import temp, get_readable_time
 
 # pymongo and database imports
