@@ -13,8 +13,8 @@ from utils import get_settings, get_size, is_subscribed, is_check_admin, get_sho
 from plugins.pm_filter import auto_filter
 from pyrogram.errors import PeerIdInvalid
 from youtube_search import YoutubeSearch
-from youtube-search-python import SearchVideos
-from yt-dlp import YoutubeDL
+from youtubesearchpython import SearchVideos
+from yt_dlp import YoutubeDL
 
 MOVIE_UPDATE_CHANNEL = []
 
