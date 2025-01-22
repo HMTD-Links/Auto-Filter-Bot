@@ -508,7 +508,7 @@ async def set_tutorial(client, message):
     await save_group_settings(grp_id, 'tutorial', tutorial)
     await message.reply_text(f"Successfully changed tutorial for {title} to\n\n{tutorial}")
 
-@Client.on_message(filters.command('telegraph'))
+#@Client.on_message(filters.command('telegraph'))
 async def telegraph(bot, message):
     reply_to_message = message.reply_to_message
     if not reply_to_message:
@@ -540,6 +540,48 @@ async def telegraph(bot, message):
             InlineKeyboardButton(text="✗ Close ✗", callback_data="close")
             ]])
     )
+
+def upload_image_requests(image_path):
+    upload_url = "https://envs.sh"
+
+    try:
+        with open(image_path, 'rb') as file:
+            files = {'file': file} 
+            response = requests.post(upload_url, files=files)
+
+            if response.status_code == 200:
+                return response.text.strip() 
+            else:
+                return print(f"Upload failed with status code {response.status_code}")
+
+    except Exception as e:
+        print(f"Error during upload: {e}")
+        return None
+
+@Client.on_message(filters.command("telegraph") & filters.private)
+async def telegraph_upload(bot, update):
+    t_msg = await bot.ask(chat_id = update.from_user.id, text = "Now Send Me Your Photo Or Video Under 5MB To Get Media Link.")
+    if not t_msg.media:
+        return await update.reply_text("**Only Media Supported.**")
+    path = await t_msg.download()
+    uploading_message = await update.reply_text("<b>ᴜᴘʟᴏᴀᴅɪɴɢ...</b>")
+    try:
+        image_url = upload_image_requests(path)
+        if not image_url:
+            return await uploading_message.edit_text("**Failed to upload file.**")
+    except Exception as error:
+        await uploading_message.edit_text(f"**Upload failed: {error}**")
+        return
+    await uploading_message.edit_text(
+        text=f"<b>Link :-</b>\n\n<code>{image_url}</code>",
+        disable_web_page_preview=True,
+        reply_markup=InlineKeyboardMarkup( [[
+            InlineKeyboardButton(text="Open Link", url=image_url),
+            InlineKeyboardButton(text="Share Link", url=f"https://telegram.me/share/url?url={image_url}")
+            ],[
+            InlineKeyboardButton(text="✗ Close ✗", callback_data="close")
+            ]])
+        )
 
 @Client.on_message(filters.command('ping'))
 async def ping(client, message):
@@ -755,13 +797,13 @@ async def song(client, message):
         thumb_name = f'thumb{title}.jpg'
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, 'wb').write(thumb.content)
-        performer = f"[Mᴋɴ Bᴏᴛᴢ™]" 
+        performer = f"[NETWORKS™]" 
         duration = results[0]["duration"]
         url_suffix = results[0]["url_suffix"]
         views = results[0]["views"]
     except Exception as e:
         print(str(e))
-        return await m.edit("**𝙵𝙾𝚄𝙽𝙳 𝙽𝙾𝚃𝙷𝙸𝙽𝙶 𝙿𝙻𝙴𝙰𝚂𝙴 𝙲𝙾𝚁𝚁𝙴𝙲𝚃 𝚃𝙷𝙴 𝚂𝙿𝙴𝙻𝙻𝙸𝙽𝙶 𝙾𝚁 𝙲𝙷𝙴𝙲𝙺 𝚃𝙷𝙴 𝙻𝙸𝙽𝙺**")
+        return await m.edit("Example: /song vaa vaathi song")
                 
     await m.edit("**dσwnlσαdíng чσur ѕσng...!**")
     try:
@@ -770,7 +812,7 @@ async def song(client, message):
             audio_file = ydl.prepare_filename(info_dict)
             ydl.process_info(info_dict)
 
-        cap = "**BY›› [Mᴋɴ Bᴏᴛᴢ™](https://t.me/mkn_bots_updates)**"
+        cap = f"**BY›› [UPDATE]({CHNL_LNK})**"
         secmul, dur, dur_arr = 1, 0, duration.split(':')
         for i in range(len(dur_arr)-1, -1, -1):
             dur += (int(dur_arr[i]) * secmul)
@@ -811,7 +853,7 @@ async def vsong(client, message: Message):
     urlissed = get_text(message)
     pablo = await client.send_message(message.chat.id, f"**𝙵𝙸𝙽𝙳𝙸𝙽𝙶 𝚈𝙾𝚄𝚁 𝚅𝙸𝙳𝙴𝙾** `{urlissed}`")
     if not urlissed:
-        return await pablo.edit("Invalid Command Syntax Please Check help Menu To Know More!")     
+        return await pablo.edit("Example: /video Your video link")     
     search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
     mi = search.result()
     mio = mi["search_result"]
