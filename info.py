@@ -115,8 +115,8 @@ SHORTLINK = is_enabled('SHORTLINK', True)
 RENAME_MODE = is_enabled('RENAME_MODE', False) # Set True or False
 
 #premium info
-PAYMENT_QR = environ.get('PAYMENT_QR', 'https://envs.sh/4UC.jpg')
-OWNER_UPI_ID = environ.get('OWNER_UPI_ID', 'starbotstamil@oksbi')
+PAYMENT_QR = environ.get('PAYMENT_QR', 'https://envs.sh/gJl.jpg')
+OWNER_UPI_ID = environ.get('OWNER_UPI_ID', 'sakthirajtnbotz@fam')
 
 # for stream
 IS_STREAM = is_enabled('IS_STREAM', True)
