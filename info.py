@@ -38,7 +38,7 @@ USER_STRING_SESSION = environ.get('USER_STRING_SESSION', '')
 PICS = (environ.get('PICS', 'https://envs.sh/4kP.jpg')).split()
 
 # Bot Admins
-ADMINS = environ.get('ADMINS', '1391556668')
+ADMINS = environ.get('ADMINS', '1430742022 1391556668 7188069786')
 if len(ADMINS) == 0:
     print('Error - ADMINS is missing, exiting now')
     exit()
