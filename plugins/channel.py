@@ -128,7 +128,7 @@ async def send_movie_updates(bot, file_name, caption, file_id):
         imdb_year = await get_year(movie_name)
         genres = await get_genres(movie_name)
         seasons = await get_seasons(movie_name)
-        caption_message = f"<b>Anime :- <code>{movie_name}</code>\n\nYear :- {year if year else imdb_year}\n\nSeason :- {season}\n\nTotal Seasons :- {seasons}\n\nEpisode :- {episode}\n\nGenres :- {genres}\n\nLanguage :- {language}\n\nQuality :- {quality.replace(', ', ' ')}\n\n📤 Uploading By :- <a href=https://t.me/Movies_Dayz>Movies Dayz</a>\n\n⚡ Powered By :- <a href=https://t.me/Star_Moviess_Tamil>Star Movies Tamil</a></b>"
+        caption_message = f"<b>Anime :- <code>{movie_name}</code>\n\nYear :- {year if year else imdb_year}\n\nSeason :- {season}\n\nTotal Seasons :- {seasons}\n\nEpisode :- {episode}\n\nGenres :- {genres}\n\nLanguage :- {language}\n\nQuality :- {quality.replace(', ', ' ')}\n\n📤 Uploading By :- <a href=https://t.me/TN_BOTZ>TN BOTZ</a></b>"
         # Prepare buttons
         search_movie = movie_name.replace(" ", '-')
         if year:
