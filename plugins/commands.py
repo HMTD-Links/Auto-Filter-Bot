@@ -558,6 +558,23 @@ def upload_image_requests(image_path):
         print(f"Error during upload: {e}")
         return None
 
+def upload_image_requests(image_path):
+    upload_url = "https://envs.sh"
+
+    try:
+        with open(image_path, 'rb') as file:
+            files = {'file': file} 
+            response = requests.post(upload_url, files=files)
+
+            if response.status_code == 200:
+                return response.text.strip() 
+            else:
+                return print(f"Upload failed with status code {response.status_code}")
+
+    except Exception as e:
+        print(f"Error during upload: {e}")
+        return None
+
 @Client.on_message(filters.command("telegraph") & filters.private)
 async def telegraph_upload(bot, update):
     t_msg = await bot.ask(chat_id = update.from_user.id, text = "Now Send Me Your Photo Or Video Under 5MB To Get Media Link.")
@@ -581,7 +598,7 @@ async def telegraph_upload(bot, update):
             ],[
             InlineKeyboardButton(text="✗ Close ✗", callback_data="close")
             ]])
-        )
+    )
 
 @Client.on_message(filters.command('ping'))
 async def ping(client, message):
