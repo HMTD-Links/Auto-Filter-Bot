@@ -77,7 +77,7 @@ DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Files')
 
 # Links
-SUPPORT_LINK = environ.get('SUPPORT_LINK', 'https://t.me/Star_Bots_Tamil_Support')
+SUPPORT_LINK = environ.get('SUPPORT_LINK', 'https://t.me/+eBzYtdaY7Bc2ZDVl')
 OWNER_USERNAME = environ.get("OWNER_USERNAME", "https://t.me/U_Karthik")
 UPDATES_LINK = environ.get('UPDATES_LINK', 'https://t.me/TN_BOTZ')
 FILMS_LINK = environ.get('FILMS_LINK', 'https://t.me/anime_treez')
@@ -92,8 +92,8 @@ LANGUAGES = [language.lower() for language in environ.get('LANGUAGES', 'tamil hi
 QUALITY = [quality.lower() for quality in environ.get('QUALITY', '360p 480p 720p 1080p 2160p').split()]
 IMDB_TEMPLATE = environ.get("IMDB_TEMPLATE", script.IMDB_TEMPLATE)
 FILE_CAPTION = environ.get("FILE_CAPTION", script.FILE_CAPTION)
-SHORTLINK_URL = environ.get("SHORTLINK_URL", "publicearn.com")
-SHORTLINK_API = environ.get("SHORTLINK_API", "6b30ad861a51b05f8dc26311c5b72b5038f2cdee")
+SHORTLINK_URL = environ.get("SHORTLINK_URL", "gplinks.com")
+SHORTLINK_API = environ.get("SHORTLINK_API", "0245a7db53282409d303f88c6d65e7adcc9c4703")
 VERIFY_EXPIRE = int(environ.get('VERIFY_EXPIRE', 86400)) # Add time in seconds (1 Day)
 WELCOME_TEXT = environ.get("WELCOME_TEXT", script.WELCOME_TEXT)
 INDEX_EXTENSIONS = [extensions.lower() for extensions in environ.get('INDEX_EXTENSIONS', 'mp4 mkv').split()]
