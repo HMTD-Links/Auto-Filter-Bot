@@ -4,17 +4,17 @@ class script(object):
     
 ɪ ᴀᴍ ᴘᴏᴡᴇʀғᴜʟ ᴀᴜᴛᴏ ғɪʟᴛᴇʀ ᴡɪᴛʜ ʟɪɴᴋ sʜᴏʀᴛᴇɴᴇʀ ʙᴏᴛ. ʏᴏᴜ ᴄᴀɴ ᴜꜱᴇ ᴀꜱ ᴀᴜᴛᴏ ғɪʟᴛᴇʀ ᴡɪᴛʜ ʟɪɴᴋ sʜᴏʀᴛᴇɴᴇʀ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ... ɪᴛ'ꜱ ᴇᴀꜱʏ ᴛᴏ ᴜꜱᴇ ᴊᴜsᴛ ᴀᴅᴅ ᴍᴇ ᴀꜱ ᴀᴅᴍɪɴ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ɪ ᴡɪʟʟ ᴘʀᴏᴠɪᴅᴇ ᴛʜᴇʀᴇ ᴍᴏᴠɪᴇꜱ ᴡɪᴛʜ ʏᴏᴜʀ ʟɪɴᴋ ꜱʜᴏʀᴛᴇɴᴇʀ... ♻️</b>"""
 
-    MY_ABOUT_TXT = """<b>★ Name: <a href=https://t.me/Star_Moviess_Bot>Star Movies Bot</a>
+    MY_ABOUT_TXT = """<b>★ Name: <a href=https://t.me/ASC_Pro_Filter_Bot>Star Movies Bot</a>
 ★ Devloper: <a href=https://t.me/U_Karthik>Karthik</a>
 ★ Server: <a href=https://www.heroku.com>Heroku</a>
 ★ Database: <a href=https://www.mongodb.com>MongoDB</a>
 ★ Language: <a href=https://www.python.org>Python</a>
 ★ Library: <a href=https://pyrogram.org>Pyrogram</a>
-★ Channel: <a href=https://t.me/DP_BOTZ>DP Bots</a></b>"""
+★ Channel: <a href=https://t.me/TN_BOTZ>TN Bots</a></b>"""
 
-    MY_OWNER_TXT = """<b>★ Name: DP Botz & Star Bots Tamil
+    MY_OWNER_TXT = """<b>★ Name: TN Botz
     
-★ Username: @DP_BOTZ & @Star_Bots_Tamil
+★ Username: @TN_BOTZ
 
 ★ Country: India 🇮🇳
 
@@ -86,9 +86,9 @@ I can't find the <b>{}</b> in my database! 🥲
 🗣 Requested by: {message.from_user.mention}
 ©️ Powered by: {message.chat.title}</b>"""
 
-    FILE_CAPTION = """<b>@Movies_Dayz - {file_name}
+    FILE_CAPTION = """<b>@TN_BOTZ - {file_name}
     
-Join ➥ <a href="https://t.me/Movies_Dayz">Movies Dayz</a></b>"""
+Join ➥ <a href="https://t.me/TN_BOTZ">TN Botz</a></b>"""
 
     WELCOME_TEXT = """<b>👋 Hello {mention}, Welcome to {title} group! 💞</b>"""
 
@@ -143,7 +143,7 @@ Commands and Usage :
 
 - ꜱᴏᴜʀᴄᴇ - <a href=https://t.me/U_Karthik>ʜᴇʀᴇ</a>
 
-- ᴅᴇᴠʟᴏᴘᴇʀ - @DP_BOTZ</b>"""
+- ᴅᴇᴠʟᴏᴘᴇʀ - @TN_BOTZ</b>"""
 
     PREMIUM_PLAN_TEXT = """<b><i><u>ᴀᴠᴀɪʟᴀʙʟᴇ ᴘʟᴀɴs</u>
 
