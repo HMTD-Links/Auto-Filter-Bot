@@ -79,10 +79,10 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Files')
 # Links
 SUPPORT_LINK = environ.get('SUPPORT_LINK', 'https://t.me/Star_Bots_Tamil_Support')
 OWNER_USERNAME = environ.get("OWNER_USERNAME", "https://t.me/U_Karthik")
-UPDATES_LINK = environ.get('UPDATES_LINK', 'https://t.me/DP_BOTZ')
-FILMS_LINK = environ.get('FILMS_LINK', 'https://t.me/Movies_Dayz')
-TUTORIAL = environ.get("TUTORIAL", "https://t.me/How_downlode_dpbots/22")
-VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/How_downlode_dpbots/22")
+UPDATES_LINK = environ.get('UPDATES_LINK', 'https://t.me/TN_BOTZ')
+FILMS_LINK = environ.get('FILMS_LINK', 'https://t.me/anime_treez')
+TUTORIAL = environ.get("TUTORIAL", "https://t.me/anime_treez")
+VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/anime_treez")
 
 # Bot settings
 DELETE_TIME = int(environ.get('DELETE_TIME', 3600)) # Add time in seconds
@@ -100,19 +100,19 @@ INDEX_EXTENSIONS = [extensions.lower() for extensions in environ.get('INDEX_EXTE
 PM_FILE_DELETE_TIME = int(environ.get('PM_FILE_DELETE_TIME', '3600'))
 
 # boolean settings
-IS_PM_SEARCH = is_enabled('IS_PM_SEARCH', False)
+IS_PM_SEARCH = is_enabled('IS_PM_SEARCH', True)
 IS_VERIFY = is_enabled('IS_VERIFY', True)
 IS_SEND_MOVIE_UPDATE = is_enabled('IS_SEND_MOVIE_UPDATE', True) # Don't Change It ( If You Want To Turn It On Then Turn It On By Commands) We Suggest You To Make It Turn Off If You Are Indexing Files First Time.
 AUTO_DELETE = is_enabled('AUTO_DELETE', True)
-WELCOME = is_enabled('WELCOME', False)
+WELCOME = is_enabled('WELCOME', True)
 PROTECT_CONTENT = is_enabled('PROTECT_CONTENT', False)
 LONG_IMDB_DESCRIPTION = is_enabled("LONG_IMDB_DESCRIPTION", False)
 LINK_MODE = is_enabled("LINK_MODE", True)
 AUTO_FILTER = is_enabled('AUTO_FILTER', True)
 IMDB = is_enabled('IMDB', True)
 SPELL_CHECK = is_enabled("SPELL_CHECK", True)
-SHORTLINK = is_enabled('SHORTLINK', False)
-RENAME_MODE = is_enabled('RENAME_MODE', true) # Set True or False
+SHORTLINK = is_enabled('SHORTLINK', True)
+RENAME_MODE = is_enabled('RENAME_MODE', False) # Set True or False
 
 #premium info
 PAYMENT_QR = environ.get('PAYMENT_QR', 'https://envs.sh/4UC.jpg')
