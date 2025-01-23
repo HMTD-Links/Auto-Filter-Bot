@@ -28,7 +28,7 @@ uvloop.install()
 class Bot(Client):
     def __init__(self):
         super().__init__(
-            name='ASC-Bot',
+            name='Auto_Filter_Bot',
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN,
@@ -81,7 +81,7 @@ class Bot(Client):
             print("Error - Make sure bot admin in BIN_CHANNEL, exiting now")
             exit()
         for admin in ADMINS:
-            await self.send_message(chat_id=admin, text="<b>✅ Bot Restarted Successfully..</b>")
+            await self.send_message(chat_id=admin, text="<b>✅ Bot Restarted Successfully</b>")
 
     async def stop(self, *args):
         await super().stop()
